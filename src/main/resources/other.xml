@@ -8,6 +8,7 @@
     <bean id="client" class="Client">
         <constructor-arg value="1"/>
         <constructor-arg value="Jane Dou"/>
+        <property name="greeting" value="Hi there " />
     </bean>
 
     <bean id="event" class="Event" scope="prototype" lazy-init="true">
@@ -21,8 +22,13 @@
 
     <bean id="app" class="App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="cacheFileEventLogger"/>
-
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="consoleEventLogger" />
+                <entry key="ERROR" value-ref="combinedEventLogger" />
+            </map>
+        </constructor-arg>
+        <constructor-arg ref="consoleEventLogger"/>
     </bean>
 
 </beans>
